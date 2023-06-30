@@ -5,6 +5,7 @@ const Product = require('../models/Product')
 
 // Create operation
 const createProduct = async (req, res, next) => {
+  console.log(req.user)
   try {
     const {
       name,
