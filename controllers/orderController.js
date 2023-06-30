@@ -33,7 +33,6 @@ const createOrder = async (req, res, next) => {
       price,
       productId,
       createdBy,
-      purchasedBy,
       purchasePrice,
     })
     res.status(StatusCodes.CREATED).json({
