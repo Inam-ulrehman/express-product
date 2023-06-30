@@ -7,7 +7,7 @@ const User = require('../models/User')
 
 // Create operation
 const createOrder = async (req, res, next) => {
-  const { quantity, price, productId, purchasedBy } = req.body
+  const { quantity, price, productId } = req.body
   const createdBy = req.user.userId
 
   try {

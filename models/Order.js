@@ -25,15 +25,7 @@ const orderSchema = new mongoose.Schema({
     ref: 'User',
     required: true,
   },
-  purchasedBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
-  },
-  updatedBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-  },
+
   // Add more fields as needed
 })
 
