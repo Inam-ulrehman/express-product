@@ -14,7 +14,7 @@ const { authenticateAdmin } = require('../middleware/auth/adminAuth')
 const { authenticateUser } = require('../middleware/auth/userAuth')
 
 // Create a product
-router.post('/', authenticateUser, createProduct)
+router.post('/', authenticateAdmin, createProduct)
 
 // Retrieve all products
 router.get('/', getAllProducts)

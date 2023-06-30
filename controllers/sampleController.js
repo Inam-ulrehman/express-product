@@ -1,4 +1,4 @@
-// controllers/sampleController.js
+// controllers/orderController.js
 
 const { StatusCodes } = require('http-status-codes')
 const Sample = require('../models/Sample')
@@ -7,49 +7,49 @@ const Sample = require('../models/Sample')
 const createSample = async (req, res, next) => {
   try {
     const { name } = req.body
-    const sample = await Sample.create({ name })
+    const order = await Sample.create({ name })
     res.status(StatusCodes.CREATED).json({
       success: true,
       message: 'Sample created successfully',
-      result: sample,
+      result: order,
     })
   } catch (err) {
     next(err)
   }
 }
 
-// Read operation: Get all samples
+// Read operation: Get all orders
 const getAllSamples = async (req, res, next) => {
   try {
-    const samples = await Sample.find()
+    const orders = await Sample.find()
     const count = await Sample.countDocuments()
     res
       .status(200)
-      .json({ success: true, message: 'All samples', count, result: samples })
+      .json({ success: true, message: 'All orders', count, result: orders })
   } catch (err) {
     next(err)
   }
 }
 
-// Read operation: Get a sample by ID
+// Read operation: Get a order by ID
 const getSampleById = async (req, res, next) => {
   try {
     const { id } = req.params
-    const sample = await Sample.findById(id)
-    if (!sample) {
+    const order = await Sample.findById(id)
+    if (!order) {
       res
         .status(StatusCodes.BAD_REQUEST)
-        .json({ success: false, message: 'Sample not found', result: sample })
+        .json({ success: false, message: 'Sample not found', result: order })
     }
     res
       .status(StatusCodes.OK)
-      .json({ success: true, message: 'Single Sample ', result: sample })
+      .json({ success: true, message: 'Single Sample ', result: order })
   } catch (err) {
     next(err)
   }
 }
 
-// Update operation: Update a sample by ID
+// Update operation: Update a order by ID
 const updateSampleById = async (req, res, next) => {
   try {
     const { id } = req.params
@@ -60,34 +60,34 @@ const updateSampleById = async (req, res, next) => {
         .json({ success: false, message: 'Please provide name' })
       return
     }
-    const sample = await Sample.findByIdAndUpdate(id, { name }, { new: true })
-    if (!sample) {
+    const order = await Sample.findByIdAndUpdate(id, { name }, { new: true })
+    if (!order) {
       res
         .status(StatusCodes.BAD_REQUEST)
-        .json({ success: false, message: 'Sample not found', result: sample })
+        .json({ success: false, message: 'Sample not found', result: order })
       return
     }
     res
       .status(StatusCodes.ACCEPTED)
-      .json({ success: true, message: 'Updated!', result: sample })
+      .json({ success: true, message: 'Updated!', result: order })
   } catch (err) {
     next(err)
   }
 }
 
-// Delete operation: Delete a sample by ID
+// Delete operation: Delete a order by ID
 const deleteSampleById = async (req, res, next) => {
   try {
     const { id } = req.params
-    const sample = await Sample.findByIdAndDelete(id)
-    if (!sample) {
-      res
+    const order = await Sample.findByIdAndDelete(id)
+    if (!order) {
+      return res
         .status(StatusCodes.BAD_REQUEST)
-        .json({ success: false, message: 'Sample not found', result: sample })
+        .json({ success: false, message: 'Sample not found', result: order })
     }
     res
       .status(StatusCodes.OK)
-      .json({ success: true, message: 'Deleted!', result: sample })
+      .json({ success: true, message: 'Deleted!', result: order })
   } catch (err) {
     next(err)
   }

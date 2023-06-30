@@ -8,6 +8,7 @@ const rateLimiter = require('express-rate-limit')
 const sampleRoutes = require('./routes/sampleRoutes')
 const userRoutes = require('./routes/userRoutes')
 const productRoutes = require('./routes/productRoutes')
+const orderRoutes = require('./routes/orderRoutes')
 const authenticateUserTokenRoute = require('./routes/singleActions/authenticateUserTokenRoute')
 const morgan = require('morgan')
 const {
@@ -43,6 +44,7 @@ app.get('/', (req, res) => {
 app.use('/api/v1/samples', sampleRoutes)
 app.use('/api/v1/users', userRoutes)
 app.use('/api/v1/products', productRoutes)
+app.use('/api/v1/orders', orderRoutes)
 //  =================== Single Action Routes ===================
 app.use('/api/v1/authenticateUserToken', authenticateUserTokenRoute)
 
