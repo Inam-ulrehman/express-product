@@ -22,7 +22,6 @@ const authenticateUser = async (req, res, next) => {
       new TextEncoder().encode(process.env.JWT_SECRET)
     )
     const { userId, name, iss } = payload
-
     // check if user exists in db or not
 
     const user = await User.findById(userId)

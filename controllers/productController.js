@@ -64,7 +64,7 @@ const getAllProducts = async (req, res, next) => {
 
     const offset = (page - 1) * limit // Calculate the offset based on the page and limit
 
-    const product = await Product.find(query, '-__v -createdBy -updatedBy')
+    const product = await Product.find(query, '-__v ')
       .sort(sort) // Sort the users based on the provided sort parameter
       .skip(offset)
       .limit(limit)
@@ -102,18 +102,37 @@ const getProductById = async (req, res, next) => {
   }
 }
 
-// Update operation: Update a product by ID
+// Update operation: Update a product by ID admin only
 const updateProductById = async (req, res, next) => {
+  const updatedBy = req.user.userId
   try {
     const { id } = req.params
-    const { name } = req.body
-    if (!name) {
-      res
-        .status(StatusCodes.BAD_REQUEST)
-        .json({ success: false, message: 'Please provide name' })
-      return
-    }
-    const product = await Product.findByIdAndUpdate(id, { name }, { new: true })
+    const {
+      name,
+      description,
+      price,
+      purchasePrice,
+      quantity,
+      storagePoint,
+      category,
+      isAvailable,
+    } = req.body
+
+    const product = await Product.findByIdAndUpdate(
+      id,
+      {
+        name,
+        description,
+        price,
+        purchasePrice,
+        quantity,
+        storagePoint,
+        category,
+        isAvailable,
+        updatedBy,
+      },
+      { new: true }
+    )
     if (!product) {
       res
         .status(StatusCodes.BAD_REQUEST)
@@ -134,7 +153,7 @@ const deleteProductById = async (req, res, next) => {
     const { id } = req.params
     const product = await Product.findByIdAndDelete(id)
     if (!product) {
-      res
+      return res
         .status(StatusCodes.BAD_REQUEST)
         .json({ success: false, message: 'Product not found', result: product })
     }

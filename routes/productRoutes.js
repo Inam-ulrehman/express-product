@@ -11,9 +11,10 @@ const {
   deleteProductById,
 } = require('../controllers/productController')
 const { authenticateAdmin } = require('../middleware/auth/adminAuth')
+const { authenticateUser } = require('../middleware/auth/userAuth')
 
 // Create a product
-router.post('/', authenticateAdmin, createProduct)
+router.post('/', authenticateUser, createProduct)
 
 // Retrieve all products
 router.get('/', getAllProducts)
@@ -22,9 +23,9 @@ router.get('/', getAllProducts)
 router.get('/:id', getProductById)
 
 // Update a product by ID
-router.put('/:id', updateProductById)
+router.put('/:id', authenticateAdmin, updateProductById)
 
 // Delete a product by ID
-router.delete('/:id', deleteProductById)
+router.delete('/:id', authenticateAdmin, deleteProductById)
 
 module.exports = router
