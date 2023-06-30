@@ -7,7 +7,7 @@ const User = require('../models/User')
 
 // Create operation
 const createOrder = async (req, res, next) => {
-  const { quantity, price, productId } = req.body
+  const { quantity, price, productId, purchasePrice } = req.body
   const createdBy = req.user.userId
 
   try {
@@ -34,6 +34,7 @@ const createOrder = async (req, res, next) => {
       productId,
       createdBy,
       purchasedBy,
+      purchasePrice,
     })
     res.status(StatusCodes.CREATED).json({
       success: true,

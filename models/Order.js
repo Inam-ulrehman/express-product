@@ -15,6 +15,9 @@ const orderSchema = new mongoose.Schema({
     required: true,
     min: [0, 'Price must be a positive number'],
   },
+  purchasePrice: {
+    type: Number,
+  },
   productId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Product',
